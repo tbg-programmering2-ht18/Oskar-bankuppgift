@@ -39,7 +39,7 @@ namespace ConsoleApp2
                     Console.ReadKey();
                 }
                 int i = 0;
-
+                //test
                 switch (choise)
                 {
                     case 1:
