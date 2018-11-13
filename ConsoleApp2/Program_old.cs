@@ -22,6 +22,8 @@ namespace ConsoleApp2
            // WriteFile(Filename);
             //ReadFile(Filename);
             Console.ReadKey();
+            
+            File.ReadAllText(Filename,mydoc)
 
             int choise = 0;
 
@@ -57,12 +59,12 @@ namespace ConsoleApp2
                 switch (choise)
                 {
                     case 1:
-                        //lägg till användare
                         Console.WriteLine("du valde val 1");
-
+                        
+                        Customer Customer1 = new Customer();
+                        list.Add(Customer1);
                         Console.Write("Ange ditt användarens namn: ");
-                        string Name = Console.ReadLine();
-                        AddCustomer(Name, list);
+                        Customer1.Name = Console.ReadLine();
 
                         //Sara kladdar:
                         /*
@@ -71,6 +73,7 @@ namespace ConsoleApp2
                         AddCustomer(customerName);
                         */
                         break;
+                    //lägg till användare
                     case 2:
                         Console.WriteLine("du valde val 2");
                         foreach (Customer customer in list)
@@ -122,11 +125,9 @@ namespace ConsoleApp2
             }
         }
 
-        static void AddCustomer(string Name, List<Customer> list)
+        static void WriteFile(string Filename, string mydoc)
         {
-            Customer Customer1 = new Customer();
-            Customer1.Name = Name;
-            list.Add(Customer1);
+            
         }
         static void ReadFile(string Filename)
         {
