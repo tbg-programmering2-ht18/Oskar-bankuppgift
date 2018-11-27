@@ -12,7 +12,7 @@ namespace ConsoleApp2
         public string Name { get; set;}
         public int Inkomst { get; set;}
 
-        public string ShowInkomstInfo()
+        public string ShowCustomerName()
         {
             return this.Name;
         }

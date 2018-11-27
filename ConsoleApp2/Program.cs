@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
+
 namespace ConsoleApp2
 {
     class Program
@@ -19,13 +20,27 @@ namespace ConsoleApp2
             {
                     Directory.CreateDirectory(@"c:\test\");
             }
-           // WriteFile(Filename);
-            //ReadFile(Filename);
+            // WriteFile(Filename);
+            Console.WriteLine(File.ReadAllText(Filename));
             Console.ReadKey();
 
-            int choise = 0;
-
             List<Customer> list = new List<Customer>();
+            int choise = 0;
+            int i = 0;
+
+            string filetext = File.ReadAllText(Filename);
+            string[] name = filetext.Split(',');
+            List<string> list2 = new List<string>(name);
+            list2.RemoveAt(0);
+
+            foreach (string word in list2)
+            {
+                string Name = list2[i];
+                AddCustomer(Name, list);
+                i++;
+            }
+
+            
             Console.WriteLine("Välkommen till banken\n");
             while(choise != 7)
             {
@@ -41,23 +56,22 @@ namespace ConsoleApp2
 
                 Console.Write("Skriv in ditt tal: ");
 
-                string Val = Console.ReadLine();
-                Console.Clear();
+                
                 try
                 {
-                    choise = int.Parse(Val);
+                    choise = int.Parse(Console.ReadLine());
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Exection: " + e.Message);
                     Console.ReadKey();
                 }
-                int i = 0;
                 //test
                 switch (choise)
                 {
                     case 1:
                         //lägg till användare
+                        Console.Clear();
                         Console.WriteLine("du valde val 1");
 
                         Console.Write("Ange ditt användarens namn: ");
@@ -72,10 +86,11 @@ namespace ConsoleApp2
                         */
                         break;
                     case 2:
+                        i = 0;
                         Console.WriteLine("du valde val 2");
                         foreach (Customer customer in list)
                         {
-                            Console.WriteLine(i + " :" + customer.ShowInkomstInfo());
+                            Console.WriteLine(i + " :" + customer.ShowCustomerName());
                             i++;
                         }
                         Console.WriteLine("Ange nummret för den ancändare du önskar ta bort : ");
@@ -85,11 +100,12 @@ namespace ConsoleApp2
                         break;
                     //ta bort användare
                     case 3:
+                        i = 0;
                         Console.WriteLine("du valde val 3");
                         foreach(Customer info in list)
                         {
                             i++;
-                            Console.WriteLine(i + " :" + info.ShowInkomstInfo());
+                            Console.WriteLine(i + " :" + info.ShowCustomerName());
                         }
                         break;
                     //visa alla befintliga användare
@@ -97,7 +113,7 @@ namespace ConsoleApp2
                         string mydoc = "";
                         foreach( Customer info in list)
                         {
-                            mydoc = mydoc +","+ info.ShowInkomstInfo();
+                            mydoc = info.ShowCustomerName() + "," + mydoc;
                         }
                         File.WriteAllText(Filename, mydoc);
                         break;
@@ -106,21 +122,7 @@ namespace ConsoleApp2
             }
 
         }
-
-        static void testcode()
-        {
-            string s = " there is a cat";
-            // Split string on spaces.
-            // ... This will separate all the words.
-            string[] words = s.Split(' ');
-            foreach (string word in words)
-            {
-                if (word != "")
-                {
-                    Console.WriteLine(word);
-                }
-            }
-        }
+        
 
         static void AddCustomer(string Name, List<Customer> list)
         {
@@ -130,9 +132,8 @@ namespace ConsoleApp2
         }
         static void ReadFile(string Filename)
         {
-            string text = File.ReadAllText(Filename);
 
-            Console.WriteLine(text);
+            Console.WriteLine(File.ReadAllText(Filename));
             Console.WriteLine("again....");
             string[] lines = File.ReadAllLines(Filename);
             foreach (string i in lines)
